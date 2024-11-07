@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AiTune - AI Podcast Platform
 
-## Getting Started
+## Introduction
 
-First, run the development server:
+AI-powered SaaS platform designed for users to create, explore, and experience podcasts. It offers advanced capabilities such as text-to-audio transformation with AI-driven multi-voice options, automatic podcast thumbnail generation, and smooth playback.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js
+- TypeScript
+- Convex
+- Clerk
+- OpenAI
+- Shadcn
+- TailwindCSS
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Secure Authentication:** A reliable and secure login and registration system.
 
-## Learn More
+- **Dynamic Home Page:** Highlights trending podcasts with a persistent player for uninterrupted listening.
 
-To learn more about Next.js, take a look at the following resources:
+- **Podcast Discovery Page:** A dedicated space for users to browse new and trending podcasts.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Comprehensive Search Functionality:** Lets users locate podcasts easily with various filters and search options.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Podcast Creation Page:** Empowers users to create podcasts using text-to-audio conversion, AI-generated images, and preview features.
 
-## Deploy on Vercel
+- **Multi-Voice AI Support:** Offers multiple AI-generated voice options for engaging and diverse podcast production.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **User Profile Page:** Displays all created podcasts with options for management and deletion.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Podcast Detail Page:** Shows in-depth information on each podcast, including creator profile, listener count, and transcript.
+
+- **Enhanced Podcast Player:** Equipped with controls for skipping, rewinding, and muting/unmuting for a smooth listening experience.
+
+- **Responsive Layout:** Visually optimized and functional across all devices and screen resolutions.
+
+…and much more, including robust code structure for scalability and reusability.
+
+## Installation
+
+Clone the repository and install the project dependencies by running ``npm install``
+
+Set Up Environment Variables  
+Create a new file named .env in the root of your project and add the following content:
+
+~~~sh
+CONVEX_DEPLOYMENT=
+NEXT_PUBLIC_CONVEX_URL=
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL='/sign-in'
+NEXT_PUBLIC_CLERK_SIGN_UP_URL='/sign-up'
+~~~
+
+Replace the placeholder values with your actual Convex & Clerk credentials.
+
+Run the project using ``npm run dev``
+
+## Credits & Attribution
+
+This project was inspired and made with the great mentoring of [JavaScript Mastery](https://www.youtube.com/@javascriptmastery). The tutorial I followed can be found [here](https://youtu.be/zfAb95tJvZQ?si=_bGMt-tP8OBHE1Gx).

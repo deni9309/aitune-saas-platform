@@ -1,0 +1,12 @@
+.next
+.cache
+package.json
+package-lock.json
+public
+node_modules
+next-env.d.ts
+next.config.mjs
+yarn.lock
+**/components/ui/*
+app/globals.css
+tailwind.config.ts
