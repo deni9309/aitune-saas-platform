@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction } from 'react'
 
-import { IdField } from 'convex/server'
+import { Id } from '@/convex/_generated/dataModel'
 
 export interface EmptyStateProps {
   title: string
@@ -12,7 +12,7 @@ export interface EmptyStateProps {
 }
 
 export interface TopPodcastersProps {
-  _id: IdField<'users'>
+  _id: Id<'users'>
   _creationTime: number
   email: string
   imageUrl: string
@@ -20,21 +20,21 @@ export interface TopPodcastersProps {
   name: string
   podcast: {
     podcastTitle: string
-    podcastId: IdField<'podcasts'>
+    podcastId: Id<'podcasts'>
   }[]
   totalPodcasts: number
 }
 
 export interface PodcastProps {
-  _id: IdField<'podcasts'>
+  _id: Id<'podcasts'>
   _creationTime: number
-  audioStorageId: IdField<'_storage'> | null
-  user: IdField<'users'>
+  audioStorageId: Id<'_storage'> | null
+  user: Id<'users'>
   podcastTitle: string
   podcastDescription: string
   audioUrl: string | null
   imageUrl: string | null
-  imageStorageId: IdField<'_storage'> | null
+  imageStorageId: Id<'_storage'> | null
   author: string
   authorId: string
   authorImageUrl: string
@@ -54,7 +54,7 @@ export interface GeneratePodcastProps {
   voiceType: string
   setAudio: Dispatch<SetStateAction<string>>
   audio: string
-  setAudioStorageId: Dispatch<SetStateAction<IdField<'_storage'> | null>>
+  setAudioStorageId: Dispatch<SetStateAction<Id<'_storage'> | null>>
   voicePrompt: string
   setVoicePrompt: Dispatch<SetStateAction<string>>
   setAudioDuration: Dispatch<SetStateAction<number>>
@@ -62,7 +62,7 @@ export interface GeneratePodcastProps {
 
 export interface GenerateThumbnailProps {
   setImage: Dispatch<SetStateAction<string>>
-  setImageStorageId: Dispatch<SetStateAction<IdField<'_storage'> | null>>
+  setImageStorageId: Dispatch<SetStateAction<Id<'_storage'> | null>>
   image: string
   imagePrompt: string
   setImagePrompt: Dispatch<SetStateAction<string>>
@@ -76,7 +76,7 @@ export interface LatestPodcastCardProps {
   audioUrl: string
   author: string
   views: number
-  podcastId: IdField<'podcasts'>
+  podcastId: Id<'podcasts'>
 }
 
 export interface PodcastDetailPlayerProps {
@@ -85,9 +85,9 @@ export interface PodcastDetailPlayerProps {
   author: string
   isOwner: boolean
   imageUrl: string
-  podcastId: IdField<'podcasts'>
-  imageStorageId: IdField<'_storage'>
-  audioStorageId: IdField<'_storage'>
+  podcastId: Id<'podcasts'>
+  imageStorageId: Id<'_storage'>
+  audioStorageId: Id<'_storage'>
   authorImageUrl: string
   authorId: string
 }
@@ -109,7 +109,7 @@ export interface PodcastCardProps {
   imgUrl: string
   title: string
   description: string
-  podcastId: IdField<'podcasts'>
+  podcastId: Id<'podcasts'>
 }
 
 export interface CarouselProps {
