@@ -1,4 +1,3 @@
-
 const Discover = () => {
   return (
     <div>

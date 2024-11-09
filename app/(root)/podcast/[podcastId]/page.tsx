@@ -1,4 +1,3 @@
-
 const PodcastDetails = ({
   params: { podcastId },
 }: {
