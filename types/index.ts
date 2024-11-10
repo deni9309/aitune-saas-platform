@@ -127,3 +127,5 @@ export type UseDotButtonType = {
   scrollSnaps: number[]
   onDotButtonClick: (index: number) => void
 }
+
+export type VoiceType = 'alloy' | 'shimmer' | 'nova' | 'echo' | 'fable' | 'onyx'

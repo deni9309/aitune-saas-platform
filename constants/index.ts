@@ -93,3 +93,5 @@ export const podcastData = [
     imgUrl: '/images/pexels8.jpg',
   },
 ]
+
+export const voiceCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx']
