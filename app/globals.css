@@ -76,6 +76,15 @@ html {
   .text-32 {
     @apply text-[32px] leading-normal;
   }
+
+  /* ===== forms and buttons ===== */
+  .primary-btn {
+    @apply text-[16px] leading-normal w-full bg-orange-1 py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-zinc-800;
+  }
+
+  .secondary-btn {
+    @apply text-[16px] leading-normal border border-orange-1 py-4 font-bold text-white-1 transition duration-500 hover:border-pink-500/80 hover:bg-pink-500/80;
+  }
 }
 
 /* ===== custom classes ===== */

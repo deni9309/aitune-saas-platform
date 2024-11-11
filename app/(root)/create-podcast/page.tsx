@@ -28,13 +28,13 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import GenerateThumbnail from '@/components/generate-thumbnail'
-import GeneratePodcast from '@/components/ui/generate-podcast'
+import GeneratePodcast from '@/components/generate-podcast'
 import { Id } from '@/convex/_generated/dataModel'
 import { voiceCategories } from '@/constants'
 import { useToast } from '@/hooks/use-toast'
-import { cn } from '@/lib/utils'
 import { PodcastFormSchema } from '@/schemas'
 import { Button } from '@/components/ui/button'
+import { VoiceType } from '@/types'
 
 const CreatePodcast = () => {
   const router = useRouter()
@@ -46,7 +46,7 @@ const CreatePodcast = () => {
   const [audioStorageId, setAudioStorageId] = useState<Id<'_storage'> | null>(null)
   const [audioDuration, setAudioDuration] = useState(0)
 
-  const [voiceType, setVoiceType] = useState<string | null>(null)
+  const [voiceType, setVoiceType] = useState<VoiceType | null>(null)
   const [voicePrompt, setVoicePrompt] = useState('')
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -120,7 +120,7 @@ const CreatePodcast = () => {
                     <Input
                       {...field}
                       placeholder="Artificial Symphony"
-                      className="input-class hocus-visible:ring-orange-1"
+                      className="input-class focus-visible:ring-offset-orange-1"
                     />
                   </FormControl>
                   <FormMessage className="text-sm text-white-1" />
@@ -130,8 +130,8 @@ const CreatePodcast = () => {
 
             <div className="*:text-16 flex flex-col gap-2.5">
               <Label className="font-bold text-white-1">Select AI Voice</Label>
-              <Select onValueChange={(value) => setVoiceType(value)}>
-                <SelectTrigger className={cn('w-full border-none bg-black-1 text-gray-1')}>
+              <Select onValueChange={(value) => setVoiceType(value as VoiceType)}>
+                <SelectTrigger className="w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1">
                   <SelectValue placeholder="Select AI Voice" />
                 </SelectTrigger>
                 <SelectContent className="text-16 border-none bg-black-1 font-bold text-white-1 focus:ring-orange-1">
@@ -161,7 +161,7 @@ const CreatePodcast = () => {
                     <Textarea
                       {...field}
                       placeholder="Write a short description for your podcast"
-                      className="input-class hocus-visible:ring-orange-1"
+                      className="input-class focus-visible:ring-offset-orange-1"
                     />
                   </FormControl>
                   <FormMessage className="text-sm text-white-1" />
@@ -174,7 +174,7 @@ const CreatePodcast = () => {
             <GeneratePodcast
               setAudioStorageId={setAudioStorageId}
               setAudio={setAudioUrl}
-              voiceType={voiceType}
+              voiceType={voiceType as VoiceType}
               audio={audioUrl}
               voicePrompt={voicePrompt}
               setVoicePrompt={setVoicePrompt}
@@ -183,11 +183,7 @@ const CreatePodcast = () => {
             <GenerateThumbnail />
 
             <div className="mt-10 w-full">
-              <Button
-                type="submit"
-                className="text-16 w-full bg-orange-1 py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-black-1"
-                disabled={isSubmitting}
-              >
+              <Button type="submit" className="primary-btn" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
                     Submitting
