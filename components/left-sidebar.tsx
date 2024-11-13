@@ -25,8 +25,7 @@ const LeftSidebar = () => {
         </Link>
 
         {sidebarLinks.map(({ imgUrl, route, label }) => {
-          const isActive =
-            pathname === route || pathname.startsWith(`${route}/`)
+          const isActive = pathname === route || pathname.startsWith(`${route}/`)
 
           return (
             <Link

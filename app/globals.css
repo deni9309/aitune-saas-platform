@@ -83,7 +83,7 @@ html {
   }
 
   .secondary-btn {
-    @apply text-[16px] leading-normal border border-orange-1 py-4 font-bold text-white-1 transition duration-500 hover:border-pink-500/80 hover:bg-pink-500/80;
+    @apply text-[16px] leading-normal border border-orange-1 py-4 font-bold text-white-1 transition-colors duration-500 hover:border-pink-500/80 hover:bg-pink-500/80;
   }
 }
 

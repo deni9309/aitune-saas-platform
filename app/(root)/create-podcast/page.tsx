@@ -129,9 +129,14 @@ const CreatePodcast = () => {
             />
 
             <div className="*:text-16 flex flex-col gap-2.5">
-              <Label className="font-bold text-white-1">Select AI Voice</Label>
-              <Select onValueChange={(value) => setVoiceType(value as VoiceType)}>
-                <SelectTrigger className="w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1">
+              <Label htmlFor="voiceType" className="font-bold text-white-1">
+                Select AI Voice
+              </Label>
+              <Select name="voiceType" onValueChange={(value) => setVoiceType(value as VoiceType)}>
+                <SelectTrigger
+                  id="voiceType"
+                  className="w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1"
+                >
                   <SelectValue placeholder="Select AI Voice" />
                 </SelectTrigger>
                 <SelectContent className="text-16 border-none bg-black-1 font-bold text-white-1 focus:ring-orange-1">
@@ -180,7 +185,13 @@ const CreatePodcast = () => {
               setVoicePrompt={setVoicePrompt}
               setAudioDuration={setAudioDuration}
             />
-            <GenerateThumbnail />
+            <GenerateThumbnail
+              setImage={setImageUrl}
+              setImageStorageId={setImageStorageId}
+              image={imageUrl}
+              imagePrompt={imagePrompt}
+              setImagePrompt={setImagePrompt}
+            />
 
             <div className="mt-10 w-full">
               <Button type="submit" className="primary-btn" disabled={isSubmitting}>

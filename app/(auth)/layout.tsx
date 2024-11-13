@@ -16,7 +16,7 @@ export default function AuthLayout({
           className="size-full"
         />
       </div>
-      
+
       {children}
     </main>
   )
