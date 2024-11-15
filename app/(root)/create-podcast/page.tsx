@@ -11,7 +11,6 @@ import { api } from '@/convex/_generated/api'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -52,6 +51,8 @@ const CreatePodcast = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isFormDisabled, setIsFormDisabled] = useState(false)
 
+  const createPodcast = useMutation(api.podcasts.createPodcast)
+
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof PodcastFormSchema>>({
@@ -63,32 +64,34 @@ const CreatePodcast = () => {
   })
 
   async function onSubmit(data: z.infer<typeof PodcastFormSchema>) {
-    try {
-      setIsSubmitting(true)
+    setIsSubmitting(true)
+    setIsFormDisabled(true)
 
+    try {
       if (!audioUrl || !imageUrl || !voiceType) {
         toast({ title: 'Please, generate audio and image first.' })
         setIsSubmitting(false)
-        throw new Error('Please, generate audio and image first.')
+        setIsFormDisabled(false)
+        return
       }
 
-      //const podcast =await api.createPodcast({
-      //  podcastTitle: data.podcastTitle,
-      //  podcastDescription: data.podcastDescription,
-      //  imageUrl,
-      //  audioUrl,
-      //  audioDuration,
-      //  voiceType,
-      //  voicePrompt,
-      //  imagePrompt,
-      //  views: 0,
-      //  audioStorageId: audioStorageId!,
-      //  imageStorageId: imageStorageId!,
-      //})
+      await createPodcast({
+        podcastTitle: data.podcastTitle,
+        podcastDescription: data.podcastDescription,
+        audioUrl,
+        imageUrl,
+        imagePrompt,
+        voiceType,
+        voicePrompt,
+        views: 0,
+        audioDuration,
+        audioStorageId: audioStorageId!,
+        imageStorageId: imageStorageId!,
+      })
 
       toast({ title: 'Podcast created successfully!' })
       setIsSubmitting(false)
-
+      setIsFormDisabled(false)
       router.push(`/`)
     } catch (error) {
       console.error(error)
@@ -98,6 +101,7 @@ const CreatePodcast = () => {
         variant: 'destructive',
       })
       setIsSubmitting(false)
+      setIsFormDisabled(false)
     }
   }
 

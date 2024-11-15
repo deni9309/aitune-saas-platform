@@ -132,4 +132,5 @@ export type UseDotButtonType = {
   onDotButtonClick: (index: number) => void
 }
 
-export type VoiceType = 'alloy' | 'shimmer' | 'nova' | 'echo' | 'fable' | 'onyx'
+// export type VoiceType = 'alloy' | 'shimmer' | 'nova' | 'echo' | 'fable' | 'onyx'
+export type VoiceType = 'Alice' | 'Bill' | 'Brian' | 'George' | 'Jessica' | 'Laura'
