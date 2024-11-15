@@ -144,7 +144,7 @@ const CreatePodcast = () => {
                     <SelectItem
                       key={category}
                       value={category}
-                      className="capitalize transition-colors focus:bg-orange-1"
+                      className="transition-colors focus:bg-orange-1"
                     >
                       {category}
                     </SelectItem>

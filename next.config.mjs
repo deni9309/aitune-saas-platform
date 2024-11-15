@@ -18,6 +18,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'neighborly-tapir-7.convex.cloud',
       },
+      {
+        protocol: 'https',
+        hostname: 'efficient-elephant-639.convex.cloud',
+      },
+      {
+        protocol: 'https',
+        hostname: 'neighborly-tapir-7.convex.cloud/api/huggingface',
+      },
     ],
   },
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useAction, useMutation } from 'convex/react'
+import { useMutation } from 'convex/react'
 import { v4 as uuidv4 } from 'uuid'
 import { useState } from 'react'
 import { useUploadFiles } from '@xixixao/uploadstuff/react'
@@ -23,7 +23,7 @@ export const useGeneratePodcast = ({
   const uploadUrl = useMutation(api.files.generateUploadUrl)
   const { startUpload } = useUploadFiles(uploadUrl)
 
-  const getPodcastAudio = useAction(api.openai.generateAudioAction)
+  // const getPodcastAudio = useAction(api.openai.generateAudioAction)
   const getAudioUrl = useMutation(api.podcasts.getUrl)
 
   const generatePodcast = async () => {
@@ -36,12 +36,17 @@ export const useGeneratePodcast = ({
     }
 
     try {
-      const response = await getPodcastAudio({
-        voice: voiceType,
-        input: voicePrompt,
+      // const response = await getPodcastAudio({ voice: voiceType, input: voicePrompt })
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/elevenlabs`, {
+        method: 'POST',
+        body: JSON.stringify({
+          input: voicePrompt,
+          voice: voiceType,
+        }),
       })
 
-      const blob = new Blob([response], { type: 'audio/mpeg' })
+      const blob = await response.blob() // const blob = new Blob([response], { type: 'audio/mpeg' })
+
       const fileName = `podcast-${uuidv4()}.mp3`
       const file = new File([blob], fileName, { type: 'audio/mpeg' })
 
@@ -59,10 +64,7 @@ export const useGeneratePodcast = ({
     } catch (error) {
       console.error('Error generating podcast', error)
       setIsGenerating(false)
-      toast({
-        title: 'Error generating podcast',
-        variant: 'destructive',
-      })
+      toast({ title: 'Error generating podcast', variant: 'destructive' })
     }
   }
 

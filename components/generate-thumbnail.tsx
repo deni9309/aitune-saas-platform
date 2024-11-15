@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { useAction, useMutation } from 'convex/react'
+import { useMutation } from 'convex/react'
 import Image from 'next/image'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -33,7 +33,7 @@ const GenerateThumbnail = ({
   const generateUploadUrl = useMutation(api.files.generateUploadUrl)
   const { startUpload } = useUploadFiles(generateUploadUrl)
   const getImageUrl = useMutation(api.podcasts.getUrl)
-  const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction)
+  //const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction)
 
   const handleImage = async (blob: Blob, filename: string) => {
     setIsImageLoading(true)
@@ -61,13 +61,17 @@ const GenerateThumbnail = ({
 
   const generateImage = async () => {
     try {
-      const res = await handleGenerateThumbnail({ prompt: imagePrompt })
-      const blob = new Blob([res], { type: 'image/png' })
+      // const res = await handleGenerateThumbnail({ prompt: imagePrompt })
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/huggingface`, {
+        method: 'POST',
+        body: JSON.stringify({ input: imagePrompt }),
+      })
 
+      const res = await response.arrayBuffer()
+      const blob = new Blob([res], { type: 'image/png' })
       handleImage(blob, `thumbnail-${uuidv4()}`)
     } catch (error) {
       console.error(error)
-      toast({ title: 'Error generating thumbnail', variant: 'destructive' })
     }
   }
 

@@ -16,30 +16,57 @@ export const sidebarLinks = [
   },
 ]
 
+// export const voiceDetails = [
+//   {
+//     id: 1,
+//     name: 'alloy',
+//   },
+//   {
+//     id: 2,
+//     name: 'echo',
+//   },
+//   {
+//     id: 3,
+//     name: 'fable',
+//   },
+//   {
+//     id: 4,
+//     name: 'onyx',
+//   },
+//   {
+//     id: 5,
+//     name: 'nova',
+//   },
+//   {
+//     id: 6,
+//     name: 'shimmer',
+//   },
+// ]
+
 export const voiceDetails = [
   {
     id: 1,
-    name: 'alloy',
+    name: 'Alice',
   },
   {
     id: 2,
-    name: 'echo',
+    name: 'Bill',
   },
   {
     id: 3,
-    name: 'fable',
+    name: 'Brian',
   },
   {
     id: 4,
-    name: 'onyx',
+    name: 'George',
   },
   {
     id: 5,
-    name: 'nova',
+    name: 'Jessica',
   },
   {
     id: 6,
-    name: 'shimmer',
+    name: 'Laura',
   },
 ]
 
@@ -94,4 +121,5 @@ export const podcastData = [
   },
 ]
 
-export const voiceCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx']
+// export const voiceCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx']
+export const voiceCategories = ['Alice', 'Bill', 'Brian', 'George', 'Jessica', 'Laura']
