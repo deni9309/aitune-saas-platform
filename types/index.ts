@@ -45,6 +45,26 @@ export interface PodcastProps {
   views: number
 }
 
+export interface Podcast {
+  _id: Id<'podcasts'>
+  _creationTime: number
+  audioStorageId: Id<'_storage'> | undefined
+  user: Id<'users'>
+  podcastTitle: string
+  podcastDescription: string
+  audioUrl: string | undefined
+  imageUrl: string | undefined
+  imageStorageId: Id<'_storage'> | undefined
+  author: string
+  authorId: string
+  authorImageUrl: string
+  voicePrompt: string
+  imagePrompt: string | undefined
+  voiceType: string
+  audioDuration: number
+  views: number
+}
+
 export interface ProfilePodcastProps {
   podcasts: PodcastProps[]
   listeners: number
@@ -110,7 +130,7 @@ export interface AudioContextType {
 }
 
 export interface PodcastCardProps {
-  imgUrl: string
+  imgUrl?: string
   title: string
   description: string
   podcastId: Id<'podcasts'>
