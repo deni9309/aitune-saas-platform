@@ -50,6 +50,7 @@ const CreatePodcast = () => {
   const [voicePrompt, setVoicePrompt] = useState('')
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isFormDisabled, setIsFormDisabled] = useState(false)
 
   const { toast } = useToast()
 
@@ -121,6 +122,7 @@ const CreatePodcast = () => {
                       {...field}
                       placeholder="Artificial Symphony"
                       className="input-class focus-visible:ring-offset-orange-1"
+                      disabled={isFormDisabled || isSubmitting}
                     />
                   </FormControl>
                   <FormMessage className="text-sm text-white-1" />
@@ -132,7 +134,11 @@ const CreatePodcast = () => {
               <Label htmlFor="voiceType" className="font-bold text-white-1">
                 Select AI Voice
               </Label>
-              <Select name="voiceType" onValueChange={(value) => setVoiceType(value as VoiceType)}>
+              <Select
+                name="voiceType"
+                onValueChange={(value) => setVoiceType(value as VoiceType)}
+                disabled={isFormDisabled || isSubmitting}
+              >
                 <SelectTrigger
                   id="voiceType"
                   className="w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1"
@@ -167,6 +173,7 @@ const CreatePodcast = () => {
                       {...field}
                       placeholder="Write a short description for your podcast"
                       className="input-class focus-visible:ring-offset-orange-1"
+                      disabled={isFormDisabled || isSubmitting}
                     />
                   </FormControl>
                   <FormMessage className="text-sm text-white-1" />
@@ -184,6 +191,8 @@ const CreatePodcast = () => {
               voicePrompt={voicePrompt}
               setVoicePrompt={setVoicePrompt}
               setAudioDuration={setAudioDuration}
+              setIsFormDisabled={setIsFormDisabled}
+              isFormDisabled={isFormDisabled}
             />
             <GenerateThumbnail
               setImage={setImageUrl}
@@ -191,10 +200,16 @@ const CreatePodcast = () => {
               image={imageUrl}
               imagePrompt={imagePrompt}
               setImagePrompt={setImagePrompt}
+              setIsFormDisabled={setIsFormDisabled}
+              isFormDisabled={isFormDisabled}
             />
 
             <div className="mt-10 w-full">
-              <Button type="submit" className="primary-btn" disabled={isSubmitting}>
+              <Button
+                type="submit"
+                className="primary-btn"
+                disabled={isSubmitting || isFormDisabled}
+              >
                 {isSubmitting ? (
                   <>
                     Submitting

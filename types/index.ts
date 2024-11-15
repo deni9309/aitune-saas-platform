@@ -58,6 +58,8 @@ export interface GeneratePodcastProps {
   voicePrompt: string
   setVoicePrompt: Dispatch<SetStateAction<string>>
   setAudioDuration: Dispatch<SetStateAction<number>>
+  setIsFormDisabled: Dispatch<SetStateAction<boolean>>
+  isFormDisabled: boolean
 }
 
 export interface GenerateThumbnailProps {
@@ -66,6 +68,8 @@ export interface GenerateThumbnailProps {
   image: string
   imagePrompt: string
   setImagePrompt: Dispatch<SetStateAction<string>>
+  setIsFormDisabled: Dispatch<SetStateAction<boolean>>
+  isFormDisabled: boolean
 }
 
 export interface LatestPodcastCardProps {

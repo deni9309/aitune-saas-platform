@@ -15,6 +15,7 @@ export const useGeneratePodcast = ({
   voiceType,
   voicePrompt,
   setAudioStorageId,
+  setIsFormDisabled,
   ..._props
 }: GeneratePodcastProps) => {
   const [isGenerating, setIsGenerating] = useState(false)
@@ -28,11 +29,14 @@ export const useGeneratePodcast = ({
 
   const generatePodcast = async () => {
     setIsGenerating(true)
+    setIsFormDisabled(true)
     setAudio('')
 
     if (!voicePrompt) {
       toast({ title: 'Please provide a prompt to generate audio' })
-      return setIsGenerating(false)
+      setIsGenerating(false)
+      setIsFormDisabled(false)
+      return
     }
 
     try {
@@ -59,12 +63,13 @@ export const useGeneratePodcast = ({
       const audioUrl = await getAudioUrl({ storageId })
       setAudio(audioUrl!)
 
-      setIsGenerating(false)
       toast({ title: 'Podcast generated successfully' })
     } catch (error) {
       console.error('Error generating podcast', error)
-      setIsGenerating(false)
       toast({ title: 'Error generating podcast', variant: 'destructive' })
+    } finally {
+      setIsGenerating(false)
+      setIsFormDisabled(false)
     }
   }
 

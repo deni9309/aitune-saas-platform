@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import { useMutation } from 'convex/react'
 import Image from 'next/image'
 import { v4 as uuidv4 } from 'uuid'
+import { useUploadFiles } from '@xixixao/uploadstuff/react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -14,7 +15,6 @@ import { api } from '@/convex/_generated/api'
 import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
 import { GenerateThumbnailProps } from '@/types'
-import { useUploadFiles } from '@xixixao/uploadstuff/react'
 
 const GenerateThumbnail = ({
   setImageStorageId,
@@ -22,6 +22,8 @@ const GenerateThumbnail = ({
   image,
   imagePrompt,
   setImagePrompt,
+  setIsFormDisabled,
+  isFormDisabled,
 }: GenerateThumbnailProps) => {
   const { toast } = useToast()
 
@@ -37,6 +39,7 @@ const GenerateThumbnail = ({
 
   const handleImage = async (blob: Blob, filename: string) => {
     setIsImageLoading(true)
+    setIsFormDisabled(true)
     setImage('')
 
     try {
@@ -50,16 +53,20 @@ const GenerateThumbnail = ({
       const imageUrl = await getImageUrl({ storageId })
       setImage(imageUrl!)
 
-      setIsImageLoading(false)
       toast({ title: 'Image generated successfully' })
     } catch (error) {
       console.error(error)
       toast({ title: 'Error generating image', variant: 'destructive' })
+    } finally {
+      setIsFormDisabled(false)
       setIsImageLoading(false)
     }
   }
 
   const generateImage = async () => {
+    setIsImageLoading(true)
+    setIsFormDisabled(true)
+
     try {
       // const res = await handleGenerateThumbnail({ prompt: imagePrompt })
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/huggingface`, {
@@ -72,11 +79,14 @@ const GenerateThumbnail = ({
       handleImage(blob, `thumbnail-${uuidv4()}`)
     } catch (error) {
       console.error(error)
+      setIsImageLoading(false)
+      setIsFormDisabled(false)
     }
   }
 
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
+
     try {
       const files = e.target.files
       if (!files || files.length === 0) return
@@ -131,6 +141,7 @@ const GenerateThumbnail = ({
               rows={5}
               placeholder="Provide text to generate thumbnail..."
               className="input-class focus-visible:ring-offset-orange-1"
+              disabled={isFormDisabled || isImageLoading}
             />
           </div>
 
@@ -138,7 +149,7 @@ const GenerateThumbnail = ({
             <Button
               type="submit"
               className="secondary-btn w-full"
-              disabled={isImageLoading}
+              disabled={isFormDisabled || isImageLoading}
               onClick={generateImage}
             >
               {isImageLoading ? <Loader size={4} bounce={false} text="Generating" /> : 'Generate'}

@@ -23,6 +23,7 @@ const GeneratePodcast = (props: GeneratePodcastProps) => {
           rows={5}
           placeholder="Provide text to generate audio..."
           className="input-class focus-visible:ring-offset-orange-1"
+          disabled={props.isFormDisabled || isGenerating}
         />
       </div>
 
@@ -30,7 +31,7 @@ const GeneratePodcast = (props: GeneratePodcastProps) => {
         <Button
           type="submit"
           className="secondary-btn w-full"
-          disabled={isGenerating}
+          disabled={isGenerating || props.isFormDisabled}
           onClick={generatePodcast}
         >
           {isGenerating ? <Loader size={1} bounce={false} text="Generating" /> : 'Generate'}
