@@ -47,11 +47,48 @@ export const createPodcast = mutation({
   },
 })
 
+export const getAllPodcasts = query({
+  handler: async (ctx) => {
+    return await ctx.db.query('podcasts').order('desc').collect()
+  },
+})
+
 export const getTrendingPodcasts = query({
   handler: async (ctx) => {
     const podcasts = await ctx.db.query('podcasts').collect()
 
-    return podcasts
+    return podcasts.sort((a, b) => b.views - a.views).slice(0, 8)
+  },
+})
+
+export const getPodcastsByVoiceType = query({
+  args: { podcastId: v.id('podcasts') },
+  handler: async (ctx, args) => {
+    const podcast = await ctx.db.get(args.podcastId)
+
+    return await ctx.db
+      .query('podcasts')
+      .filter((p) =>
+        p.and(
+          p.eq(p.field('voiceType'), podcast?.voiceType),
+          p.neq(p.field('_id'), args.podcastId),
+        ),
+      )
+      .collect()
+  },
+})
+
+export const getPodcastsByAuthor = query({
+  args: { authorId: v.string() },
+  handler: async (ctx, args) => {
+    const podcasts = await ctx.db
+      .query('podcasts')
+      .filter((p) => p.eq(p.field('authorId'), args.authorId))
+      .collect()
+
+    const totalViews = podcasts.reduce((acc, p) => acc + p.views, 0)
+
+    return { podcasts, listeners: totalViews }
   },
 })
 
@@ -59,5 +96,68 @@ export const getPodcastById = query({
   args: { podcastId: v.id('podcasts') },
   handler: async (ctx, args) => {
     return await ctx.db.get(args.podcastId)
+  },
+})
+
+export const getPodcastsBySearch = query({
+  args: { search: v.string() },
+  handler: async (ctx, args) => {
+    if (args.search === '') {
+      return await ctx.db.query('podcasts').order('desc').collect()
+    }
+
+    const authorSearch = await ctx.db
+      .query('podcasts')
+      .withSearchIndex('search_author', (p) => p.search('author', args.search))
+      .take(10)
+
+    if (authorSearch.length > 0) {
+      return authorSearch
+    }
+
+    const titleSearch = await ctx.db
+      .query('podcasts')
+      .withSearchIndex('search_title', (p) => p.search('podcastTitle', args.search))
+      .take(10)
+
+    if (titleSearch.length > 0) {
+      return titleSearch
+    }
+
+    return await ctx.db
+      .query('podcasts')
+      .withSearchIndex('search_body', (p) => p.search('podcastDescription', args.search))
+      .take(10)
+  },
+})
+
+export const updatePodcastViews = mutation({
+  args: { podcastId: v.id('podcasts') },
+  handler: async (ctx, args) => {
+    const podcast = await ctx.db.get(args.podcastId)
+
+    if (!podcast) throw new ConvexError('Podcast not found')
+
+    return await ctx.db.patch(args.podcastId, {
+      views: podcast.views + 1,
+    })
+  },
+})
+
+export const deletePodcast = mutation({
+  args: {
+    podcastId: v.id('podcasts'),
+    imageStorageId: v.id('_storage'),
+    audioStorageId: v.id('_storage'),
+  },
+  handler: async (ctx, args) => {
+    const podcast = await ctx.db.get(args.podcastId)
+
+    if (!podcast) throw new ConvexError('Podcast not found')
+
+    await ctx.storage.delete(args.imageStorageId)
+    await ctx.storage.delete(args.audioStorageId)
+
+    return await ctx.db.delete(args.podcastId)
   },
 })
