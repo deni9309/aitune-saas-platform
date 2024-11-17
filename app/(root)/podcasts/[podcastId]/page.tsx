@@ -5,8 +5,10 @@ import { useQuery } from 'convex/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
+import EmptyState from '@/components/empty-state'
 import Loader from '@/components/loader'
 import PodcastDetailPlayer from '@/components/podcast-detail-player'
+import PodcastCard from '@/components/podcast-card'
 import { api } from '@/convex/_generated/api'
 import { Id } from '@/convex/_generated/dataModel'
 import { Podcast } from '@/types'
@@ -17,11 +19,16 @@ const PodcastDetails = ({ params: { podcastId } }: { params: { podcastId: Id<'po
   const [podcast, setPodcast] = useState<Podcast | null>(null)
   const data = useQuery(api.podcasts.getPodcastById, { podcastId })
 
+  const [similarPodcasts, setSimilarPodcasts] = useState<Podcast[] | null>(null)
+  const similarData = useQuery(api.podcasts.getPodcastsByVoiceType, { podcastId })
+
   useEffect(() => {
     setPodcast(data as Podcast)
-  }, [data])
 
-  if (!podcast) return <Loader isFullHeight size={20} />
+    setSimilarPodcasts(similarData ? (similarData as Podcast[]) : [])
+  }, [data, podcastId, similarData])
+
+  if (!podcast || !similarPodcasts) return <Loader isFullHeight showText={false} size={20} />
 
   const isOwner = user?.id === podcast.authorId
 
@@ -58,6 +65,23 @@ const PodcastDetails = ({ params: { podcastId } }: { params: { podcastId: Id<'po
 
       <section className="mt-8 flex flex-col gap-5">
         <h1 className="text-20 font-bold text-white-1">Similar Podcasts</h1>
+        {similarPodcasts.length > 0 ? (
+          similarPodcasts.map((p) => (
+            <PodcastCard
+              key={p._id}
+              imgUrl={p.imageUrl}
+              title={p.podcastTitle}
+              description={p.podcastDescription}
+              podcastId={p._id}
+            />
+          ))
+        ) : (
+          <EmptyState
+            title="No Similar Podcasts Found."
+            buttonLink="/discover"
+            buttonText="Discover More Podcasts"
+          />
+        )}
       </section>
     </section>
   )
