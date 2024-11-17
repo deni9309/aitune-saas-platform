@@ -37,7 +37,7 @@ const PodcastDetailPlayer = ({
   const handleDelete = async () => {
     if (!imageStorageId || !audioStorageId) {
       toast({ title: 'There was an error deleting the podcast', variant: 'destructive' })
-      return
+      return router.push('/')
     }
 
     try {
@@ -60,16 +60,17 @@ const PodcastDetailPlayer = ({
     setAudio({
       title: podcastTitle,
       audioUrl,
-      imageUrl:  '/icons/no-podcast-img.svg',
+      imageUrl: imageUrl || '/icons/podcast-placeholder.svg',
       author,
       podcastId,
     })
   }
 
   if (!imageUrl || !authorImageUrl) return <Loader bounce={false} showText={false} size={10} />
+  
   return (
     <div className="mt-6 flex w-full justify-between max-md:justify-center">
-      <div className="flex flex-col gap-8 max-md:items-center md:flex-row">
+      <div className="flex flex-col gap-8 max-md:items-center lg:flex-row">
         <Image
           src={imageUrl}
           width={250}
@@ -110,13 +111,13 @@ const PodcastDetailPlayer = ({
       </div>
 
       {isOwner && (
-        <div className="relative mt-2">
+        <div className="relative lg:mt-2">
           <Image
             src="/icons/three-dots.svg"
-            width={20}
-            height={20}
+            width={24}
+            height={24}
             alt="Three-dots icon"
-            className="cursor-pointer"
+            className="cursor-pointer py-1 bg-black-6 rounded-md"
             onClick={() => {
               setIsDeleting((prev) => !prev)
             }}
