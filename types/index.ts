@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import { Dispatch, SetStateAction } from 'react'
+import { EmblaOptionsType } from 'embla-carousel'
 
 import { Id } from '@/convex/_generated/dataModel'
 
@@ -9,20 +10,6 @@ export interface EmptyStateProps {
   search?: boolean
   buttonText?: string
   buttonLink?: string
-}
-
-export interface TopPodcastersProps {
-  _id: Id<'users'>
-  _creationTime: number
-  email: string
-  imageUrl: string
-  clerkId: string
-  name: string
-  podcast: {
-    podcastTitle: string
-    podcastId: Id<'podcasts'>
-  }[]
-  totalPodcasts: number
 }
 
 export interface PodcastProps {
@@ -63,6 +50,21 @@ export interface Podcast {
   voiceType: string
   audioDuration: number
   views: number
+}
+
+export interface TopPodcasters {
+  totalPodcasts: number
+  podcasts: {
+    podcastTitle: string
+    podcastId: Id<'podcasts'>
+    imageUrl?: string
+  }[]
+  _id: Id<'users'>
+  _creationTime: number
+  imageUrl: string
+  email: string
+  clerkId: string
+  name: string
 }
 
 export interface ProfilePodcastProps {
@@ -130,7 +132,8 @@ export interface PodcastCardProps {
 }
 
 export interface CarouselProps {
-  fansLikeDetail: TopPodcastersProps[]
+  slidesData: TopPodcasters[]
+  options?: EmblaOptionsType
 }
 
 export interface ProfileCardProps {

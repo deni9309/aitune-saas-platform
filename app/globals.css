@@ -38,7 +38,7 @@ html {
   }
 
   .carousel_box {
-    @apply relative flex h-fit aspect-square w-full flex-none cursor-pointer flex-col justify-end rounded-xl border-none;
+    @apply mt-4 relative w-full flex-none flex items-center aspect-square cursor-pointer flex-col justify-end rounded-xl border border-black-6;
   }
 
   .button_bold-16 {

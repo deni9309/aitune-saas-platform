@@ -67,7 +67,7 @@ const PodcastDetailPlayer = ({
   }
 
   if (!imageUrl || !authorImageUrl) return <Loader bounce={false} showText={false} size={10} />
-  
+
   return (
     <div className="mt-6 flex w-full justify-between max-md:justify-center">
       <div className="flex flex-col gap-8 max-md:items-center lg:flex-row">
@@ -111,13 +111,13 @@ const PodcastDetailPlayer = ({
       </div>
 
       {isOwner && (
-        <div className="relative lg:mt-2">
+        <div className="relative max-lg:ml-2 lg:mt-2">
           <Image
             src="/icons/three-dots.svg"
             width={24}
             height={24}
             alt="Three-dots icon"
-            className="cursor-pointer py-1 bg-black-6 rounded-md"
+            className="cursor-pointer rounded-md bg-black-6 py-1"
             onClick={() => {
               setIsDeleting((prev) => !prev)
             }}

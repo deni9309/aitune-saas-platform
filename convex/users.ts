@@ -35,6 +35,7 @@ export const getTopUsersByPodcastCount = query({
           podcasts: sortedPodcasts.map((p) => ({
             podcastTitle: p.podcastTitle,
             podcastId: p._id,
+            imageUrl: p.imageUrl,
           })),
         }
       }),
@@ -66,6 +67,7 @@ export const updateUser = internalMutation({
     clerkId: v.string(),
     imageUrl: v.string(),
     email: v.string(),
+    name: v.string(),
   },
   async handler(ctx, args) {
     const user = await ctx.db
