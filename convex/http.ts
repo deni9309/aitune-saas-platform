@@ -7,6 +7,7 @@ import { Webhook } from 'svix'
 
 import { httpAction } from './_generated/server'
 import { internal } from './_generated/api'
+import { sliceEmail } from '@/lib/utils'
 
 const handleClerkWebhook = httpAction(async (ctx, request) => {
   const event = await validateRequest(request)
@@ -21,12 +22,7 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
         clerkId: event.data.id,
         email: event.data.email_addresses[0].email_address,
         imageUrl: event.data.image_url,
-        name:
-          event.data.first_name ||
-          event.data.email_addresses[0].email_address.slice(
-            0,
-            event.data.email_addresses[0].email_address.indexOf('@'),
-          ),
+        name: event.data.first_name || sliceEmail(event.data.email_addresses[0].email_address),
       })
       break
     case 'user.updated':
@@ -34,12 +30,7 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
         clerkId: event.data.id,
         imageUrl: event.data.image_url,
         email: event.data.email_addresses[0].email_address,
-        name:
-          event.data.first_name ||
-          event.data.email_addresses[0].email_address.slice(
-            0,
-            event.data.email_addresses[0].email_address.indexOf('@'),
-          ),
+        name: event.data.first_name || sliceEmail(event.data.email_addresses[0].email_address),
       })
       break
     case 'user.deleted':
@@ -48,7 +39,7 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
       })
       break
     default:
-      console.log('ignored Clerk webhook event', event.type)
+      console.log('Ignored Clerk webhook event', event.type)
       break
   }
 

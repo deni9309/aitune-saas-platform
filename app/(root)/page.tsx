@@ -15,8 +15,6 @@ const Home = () => {
   const data = useQuery(api.podcasts.getTrendingPodcasts)
 
   useEffect(() => {
-    setIsFetching(true)
-
     if (data) {
       setTrendingPodcasts(data as Podcast[])
     } else {
@@ -35,13 +33,14 @@ const Home = () => {
         <div className="podcast_grid">
           {trendingPodcasts.length > 0 &&
             trendingPodcasts.map((podcast) => (
-              <PodcastCard
-                key={podcast._id}
-                imgUrl={podcast.imageUrl}
-                title={podcast.podcastTitle}
-                description={podcast.podcastDescription}
-                podcastId={podcast._id}
-              />
+              <div key={podcast._id} className="transition duration-300 hover:scale-[.97]">
+                <PodcastCard
+                  imgUrl={podcast.imageUrl}
+                  title={podcast.podcastTitle}
+                  description={podcast.podcastDescription}
+                  podcastId={podcast._id}
+                />
+              </div>
             ))}
         </div>
       </section>
