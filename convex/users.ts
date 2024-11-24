@@ -17,8 +17,7 @@ export const getUserById = query({
 
 export const getTopUsersByPodcastCount = query({
   args: {},
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  handler: async (ctx, args) => {
+  handler: async (ctx, _args) => {
     const users = await ctx.db.query('users').collect()
 
     const usersData = await Promise.all(

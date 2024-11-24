@@ -14,7 +14,7 @@ import { TopPodcasters } from '@/types'
 import { sliceEmail } from '@/lib/utils'
 
 const RightSidebar = () => {
-  const { user } = useUser()
+  const { user, isSignedIn } = useUser()
   const [isFetching, setIsFetching] = useState(true)
   const [topPodcasters, setTopPodcasters] = useState<TopPodcasters[]>([])
   const data = useQuery(api.users.getTopUsersByPodcastCount)
@@ -31,33 +31,69 @@ const RightSidebar = () => {
 
   return (
     <section className="right_sidebar text-white-1">
-      <SignedIn>
-        <Link
-          href={`/profile/${user?.id}`}
-          prefetch={true}
-          className="mb-6 flex gap-2.5 rounded-xl px-1 py-3 transition duration-300 hover:bg-black-6"
-        >
-          <div className="ml-2">
-            <UserButton />
-          </div>
-          <div className="flex w-full items-center justify-between">
-            <h1 className="text-16 truncate font-semibold text-white-1">
-              {user?.firstName
-                ? `${user?.firstName} ${user?.lastName}`
-                : `${sliceEmail(user?.emailAddresses[0].emailAddress)}`}
-            </h1>
-            <Image src="/icons/right-arrow.svg" width={24} height={24} alt="Right Arrow" />
-          </div>
-        </Link>
-      </SignedIn>
+      {isSignedIn && user && (
+        <SignedIn>
+          <Link
+            href={`/profile/${user.id}`}
+            prefetch={true}
+            className="mb-6 flex gap-2.5 rounded-xl px-1 py-3 transition duration-300 hover:bg-black-6"
+          >
+            <div className="ml-2">
+              <UserButton />
+            </div>
+            <div className="flex w-full items-center justify-between">
+              <h1 className="text-16 truncate font-semibold text-white-1">
+                {user?.firstName
+                  ? `${user?.firstName} ${user?.lastName}`
+                  : `${sliceEmail(user.emailAddresses[0].emailAddress)}`}
+              </h1>
+              <Image src="/icons/right-arrow.svg" width={24} height={24} alt="Right Arrow" />
+            </div>
+          </Link>
+        </SignedIn>
+      )}
 
       <section>
-        <Header headerTitle="Latest from Top Casters" />
+        <Header headerTitle="Top & Latest" />
         {isFetching ? (
           <Loader bounce={false} showText={false} size={5} />
         ) : (
           <Carousel slidesData={topPodcasters} options={{ loop: true }} />
         )}
+      </section>
+      <section className="mt-12 flex flex-col gap-8">
+        <Header headerTitle="Top Podcasters" />
+        <div className="flex flex-col">
+          {topPodcasters.length > 0 &&
+            topPodcasters.slice(0, 4).map((p) => (
+              <div
+                key={p._id}
+                className="relative after:absolute after:mx-[calc(50%-110px)] after:w-[220px] after:border-b after:border-b-black-5 after:content-['']"
+              >
+                <Link
+                  href={`/profile/${p.clerkId}`}
+                  prefetch={true}
+                  className="my-1.5 flex cursor-pointer items-center justify-between rounded-xl px-3 py-2 transition duration-200 hover:bg-black-6"
+                >
+                  <figure className="flex items-center gap-2">
+                    <Image
+                      src={p.imageUrl}
+                      width={36}
+                      height={36}
+                      alt={p.name}
+                      className="aspect-square rounded-lg"
+                    />
+                    <p className='text-14 font-semibold'>{p.name}</p>
+                  </figure>
+                  <div className='flex items-center'>
+                    <p className="text-12">
+                      {p.totalPodcasts} {p.totalPodcasts === 1 ? 'podcast' : 'podcasts'}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            ))}
+        </div>
       </section>
     </section>
   )
