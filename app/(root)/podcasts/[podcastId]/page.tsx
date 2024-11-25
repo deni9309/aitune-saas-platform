@@ -34,7 +34,7 @@ const PodcastDetails = ({ params: { podcastId } }: { params: { podcastId: Id<'po
 
   return (
     <section className="flex w-full flex-col">
-      <header className="mt-9 flex items-center justify-between">
+      <header className="mt-9 flex flex-wrap items-center justify-between">
         <h1 className="text-20 font-bold text-white-1">Currently Playing</h1>
 
         <figure className="flex gap-3">
@@ -63,18 +63,20 @@ const PodcastDetails = ({ params: { podcastId } }: { params: { podcastId: Id<'po
         )}
       </div>
 
-      <section className="mt-8 flex flex-col gap-5">
+      <section className="mb-8 mt-8 flex flex-col gap-5">
         <h1 className="text-20 font-bold text-white-1">Similar Podcasts</h1>
         {similarPodcasts.length > 0 ? (
-          similarPodcasts.map((p) => (
-            <PodcastCard
-              key={p._id}
-              imgUrl={p.imageUrl}
-              title={p.podcastTitle}
-              description={p.podcastDescription}
-              podcastId={p._id}
-            />
-          ))
+          <div className="podcast_grid">
+            {similarPodcasts.map((p) => (
+              <PodcastCard
+                key={p._id}
+                imgUrl={p.imageUrl}
+                title={p.podcastTitle}
+                description={p.podcastDescription}
+                podcastId={p._id}
+              />
+            ))}
+          </div>
         ) : (
           <EmptyState
             title="No Similar Podcasts Found."

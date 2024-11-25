@@ -9,14 +9,16 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { sidebarLinks } from '@/constants'
 import { cn } from '@/lib/utils'
+import { useAudio } from '@/providers/AudioProvider'
 
 const LeftSidebar = () => {
   const pathname = usePathname()
   const router = useRouter()
   const { signOut } = useClerk()
+  const { isPlayerVisible } = useAudio()
 
   return (
-    <section className="left_sidebar">
+    <section className={cn('left_sidebar', isPlayerVisible ? 'h-[calc(100vh-130px)]' : 'h-screen')}>
       <nav className="flex flex-col gap-6">
         <Link href="/" prefetch className="cursor-pointer pb-10 text-center">
           <Image

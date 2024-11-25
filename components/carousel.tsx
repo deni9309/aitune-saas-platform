@@ -45,7 +45,7 @@ const Carousel = ({ slidesData, options }: CarouselProps) => {
                 '/icons/podcast-placeholder.svg'
               }
               fill
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               alt="Podcast Thumbnail"
               className="absolute size-full rounded-xl border-none object-cover transition duration-300 group-hover:scale-[.98] group-hover:brightness-125"
               priority

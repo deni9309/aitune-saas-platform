@@ -28,7 +28,7 @@ const PodcastDetailPlayer = ({
 }: PodcastDetailPlayerProps) => {
   const router = useRouter()
   const { toast } = useToast()
-  const { setAudio } = useAudio()
+  const { setAudio, setIsPlayerVisible } = useAudio()
 
   const [isDeleting, setIsDeleting] = useState(false)
 
@@ -64,19 +64,22 @@ const PodcastDetailPlayer = ({
       author,
       podcastId,
     })
+
+    setIsPlayerVisible(true)
   }
 
   if (!imageUrl || !authorImageUrl) return <Loader bounce={false} showText={false} size={10} />
 
   return (
     <div className="mt-6 flex w-full justify-between max-md:justify-center">
-      <div className="flex flex-col gap-8 max-md:items-center lg:flex-row">
+      <div className="flex flex-col gap-8 max-md:items-center md:flex-row">
         <Image
           src={imageUrl}
+          priority
           width={250}
           height={250}
           alt="Podcast Cover"
-          className="h-[250px] w-fit rounded-lg object-contain"
+          className="max-h-[250px] rounded-lg"
         />
 
         <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-9">
@@ -103,7 +106,7 @@ const PodcastDetailPlayer = ({
 
           <Button
             onClick={handlePlay}
-            className="text-16 w-full max-w-[250px] bg-orange-1 font-extrabold text-white-1 hover:bg-black-6 transition duration-300"
+            className="text-16 w-full max-w-[250px] bg-orange-1 font-extrabold text-white-1 transition duration-300 hover:bg-black-6"
           >
             <Image src="/icons/Play.svg" width={20} height={20} alt="Play" /> &nbsp; Play Podcast
           </Button>

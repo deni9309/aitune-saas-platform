@@ -11,10 +11,12 @@ import Carousel from '@/components/carousel'
 import Loader from '@/components/loader'
 import { api } from '@/convex/_generated/api'
 import { TopPodcasters } from '@/types'
-import { sliceEmail } from '@/lib/utils'
+import { cn, sliceEmail } from '@/lib/utils'
+import { useAudio } from '@/providers/AudioProvider'
 
 const RightSidebar = () => {
   const { user, isSignedIn } = useUser()
+  const { isPlayerVisible } = useAudio()
   const [isFetching, setIsFetching] = useState(true)
   const [topPodcasters, setTopPodcasters] = useState<TopPodcasters[]>([])
   const data = useQuery(api.users.getTopUsersByPodcastCount)
@@ -30,7 +32,12 @@ const RightSidebar = () => {
   }, [data])
 
   return (
-    <section className="right_sidebar text-white-1">
+    <section
+      className={cn(
+        'right_sidebar overflow-y-auto text-white-1',
+        isPlayerVisible ? 'h-[calc(100vh-130px)]' : 'min-h-screen',
+      )}
+    >
       {isSignedIn && user && (
         <SignedIn>
           <Link
@@ -83,9 +90,9 @@ const RightSidebar = () => {
                       alt={p.name}
                       className="aspect-square rounded-lg"
                     />
-                    <p className='text-14 font-semibold'>{p.name}</p>
+                    <p className="text-14 font-semibold">{p.name}</p>
                   </figure>
-                  <div className='flex items-center'>
+                  <div className="flex items-center">
                     <p className="text-12">
                       {p.totalPodcasts} {p.totalPodcasts === 1 ? 'podcast' : 'podcasts'}
                     </p>

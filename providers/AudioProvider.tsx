@@ -10,12 +10,20 @@ const AudioContext = createContext<AudioContextType | undefined>(undefined)
 const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname()
   const [audio, setAudio] = useState<AudioProps | undefined>(undefined)
+  const [isPlayerVisible, setIsPlayerVisible] = useState<boolean>(false)
 
   useEffect(() => {
-    if (pathname === '/create-podcast') setAudio(undefined)
+    if (pathname === '/create-podcast') {
+      setAudio(undefined)
+      setIsPlayerVisible(false)
+    }
   }, [pathname])
 
-  return <AudioContext.Provider value={{ audio, setAudio }}>{children}</AudioContext.Provider>
+  return (
+    <AudioContext.Provider value={{ audio, setAudio, isPlayerVisible, setIsPlayerVisible }}>
+      {children}
+    </AudioContext.Provider>
+  )
 }
 
 export const useAudio = () => {
