@@ -18,7 +18,7 @@ html {
   }
 
   .podcast_grid {
-    @apply grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4;
+    @apply grid grid-cols-1 gap-5 max-lg:gap-x-12 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 place-content-center;
   }
 
   .right_sidebar {

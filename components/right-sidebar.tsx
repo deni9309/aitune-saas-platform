@@ -23,11 +23,9 @@ const RightSidebar = () => {
 
   useEffect(() => {
     setIsFetching(true)
-    if (data) {
-      setTopPodcasters(data)
-    } else {
-      setTopPodcasters([])
-    }
+    if (data) setTopPodcasters(data)
+    else setTopPodcasters([])
+
     setIsFetching(false)
   }, [data])
 

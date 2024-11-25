@@ -33,14 +33,15 @@ const Home = () => {
         <div className="podcast_grid">
           {trendingPodcasts.length > 0 &&
             trendingPodcasts.map((podcast) => (
-              <div key={podcast._id} className="transition duration-300 hover:scale-[.97]">
+             
                 <PodcastCard
+                  key={podcast._id}
                   imgUrl={podcast.imageUrl}
                   title={podcast.podcastTitle}
                   description={podcast.podcastDescription}
                   podcastId={podcast._id}
                 />
-              </div>
+            
             ))}
         </div>
       </section>

@@ -79,7 +79,7 @@ const PodcastDetailPlayer = ({
           width={250}
           height={250}
           alt="Podcast Cover"
-          className="max-h-[250px] rounded-lg"
+          className="aspect-square max-w-[250px] rounded-lg object-cover"
         />
 
         <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-9">

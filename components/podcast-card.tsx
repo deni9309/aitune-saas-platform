@@ -13,14 +13,17 @@ const PodcastCard = ({ imgUrl, title, description, podcastId }: PodcastCardProps
   }
 
   return (
-    <div onClick={handleViews} className="cursor-pointer">
+    <div
+      onClick={handleViews}
+      className="flex w-full flex-1 cursor-pointer flex-col transition duration-300 hover:scale-[.97] max-sm:px-10"
+    >
       <figure className="flex flex-col gap-2">
         <Image
           src={imgUrl || '/icons/podcast-placeholder.svg'}
           width={320}
           height={213.5}
           alt={title}
-          className="aspect-square h-fit w-full max-w-[200px] rounded-xl object-cover 2xl:size-[200px]"
+          className="aspect-square h-fit w-full rounded-xl object-cover 2xl:size-[200px]"
           priority
         />
         <div className="flex w-full flex-col gap-0.5">
