@@ -15,7 +15,7 @@ const PodcastCard = ({ imgUrl, title, description, podcastId }: PodcastCardProps
   return (
     <div
       onClick={handleViews}
-      className="flex w-full flex-1 cursor-pointer flex-col transition duration-300 hover:scale-[.97] max-sm:px-10"
+      className="flex w-full flex-1 cursor-pointer flex-col p-0 transition duration-300 hover:scale-[.97] max-lg:p-2 max-sm:px-10"
     >
       <figure className="flex flex-col gap-2">
         <Image

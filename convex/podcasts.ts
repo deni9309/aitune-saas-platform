@@ -102,7 +102,7 @@ export const getPodcastById = query({
 export const getPodcastsBySearch = query({
   args: { search: v.string() },
   handler: async (ctx, args) => {
-    if (args.search === '') {
+    if (!args.search || args.search === '') {
       return await ctx.db.query('podcasts').order('desc').collect()
     }
 
