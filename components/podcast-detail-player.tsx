@@ -11,6 +11,7 @@ import { api } from '@/convex/_generated/api'
 import { useMutation } from 'convex/react'
 import { useAudio } from '@/providers/AudioProvider'
 import { PodcastDetailPlayerProps } from '@/types'
+import { cn } from '@/lib/utils'
 
 const PodcastDetailPlayer = ({
   isOwner,
@@ -114,26 +115,33 @@ const PodcastDetailPlayer = ({
       </div>
 
       {isOwner && (
-        <div className="relative max-lg:ml-2 lg:mt-2">
+        <div className="relative max-lg:ml-2">
           <Image
             src="/icons/three-dots.svg"
-            width={24}
-            height={24}
+            width={26}
+            height={26}
             alt="Three-dots icon"
-            className="cursor-pointer rounded-md bg-black-6 py-1"
+            className={cn(
+              'relative z-10 h-[36px] cursor-pointer rounded-r-md bg-black-6',
+              !isDeleting && 'rounded-md',
+            )}
             onClick={() => {
               setIsDeleting((prev) => !prev)
             }}
           />
-          {isDeleting && (
-            <div
-              className="absolute -left-32 -top-2 z-10 flex w-32 cursor-pointer justify-center gap-2 rounded-md bg-black-6 py-1.5 hover:bg-black-2"
-              onClick={handleDelete}
-            >
-              <Image src="/icons/delete.svg" width={16} height={16} alt="Delete icon" />
-              <p className="text-16 text-white-1">Delete</p>
-            </div>
-          )}
+
+          <div
+            className={cn(
+              'flex-center absolute top-0 z-10 h-[36px] w-32 cursor-pointer gap-2 rounded-l-md bg-black-6 duration-500 ease-in-out hover:bg-black-5',
+              isDeleting
+                ? 'right-[26.2px] opacity-100'
+                : 'collapse right-[2px] z-0 overflow-hidden opacity-0',
+            )}
+            onClick={handleDelete}
+          >
+            <Image src="/icons/delete.svg" width={18} height={18} alt="Delete icon" />
+            <p className="text-16 text-white-1">Delete</p>
+          </div>
         </div>
       )}
     </div>

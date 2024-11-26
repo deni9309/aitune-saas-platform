@@ -20,14 +20,14 @@ const LeftSidebar = () => {
   return (
     <section className={cn('left_sidebar', isPlayerVisible ? 'h-[calc(100vh-130px)]' : 'h-screen')}>
       <nav className="flex flex-col gap-6">
-        <Link href="/" prefetch className="cursor-pointer pb-10 text-center">
+        <Link href="/" prefetch className="pb-10 text-center">
           <Image
             src="/icons/aitune-logo.svg"
-            width={145.3}
-            height={96.83}
+            width={872}
+            height={582}
             priority
             alt="AiTune Logo"
-            className="max-lg:scale-[0.7] lg:scale-90"
+            className="h-auto max-w-[145.33px] max-lg:scale-[0.7] lg:scale-90"
           />
         </Link>
 
