@@ -1,4 +1,4 @@
-# AiTune - AI Podcast Platform
+# ![]()<img src="public/icons/aitune-logo.svg" alt="AiTune" width="150" height="auto" /> — **AI Podcast Platform**
 
 ## Introduction
 
@@ -40,23 +40,39 @@ AI-powered SaaS platform designed for users to create, explore, and experience p
 
 ## Installation
 
-Clone the repository and install the project dependencies by running ``npm install``
+Clone the repository and install the project dependencies by running `npm install`
 
 Set Up Environment Variables  
 Create a new file named .env in the root of your project and add the following content:
 
-~~~sh
+```sh
+# Next.js (local)
+NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+
+# Convex
 CONVEX_DEPLOYMENT=
 NEXT_PUBLIC_CONVEX_URL=
+
+# Clerk
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 NEXT_PUBLIC_CLERK_SIGN_IN_URL='/sign-in'
 NEXT_PUBLIC_CLERK_SIGN_UP_URL='/sign-up'
-~~~
+CLERK_WEBHOOK_SECRET=
+
+# OpenAI
+OPENAI_API_KEY=
+
+# Huggingface
+HUGGINGFACE_API_KEY=
+
+# ElevenLabs
+ELEVENLABS_API_KEY=
+```
 
 Replace the placeholder values with your actual Convex & Clerk credentials.
 
-Run the project using ``npm run dev``
+Run the project using `npm run dev`
 
 ## Credits & Attribution
 
