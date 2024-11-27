@@ -68,7 +68,7 @@ export interface TopPodcasters {
 }
 
 export interface ProfilePodcastProps {
-  podcasts: PodcastProps[]
+  podcasts: Podcast[]
   listeners: number
 }
 

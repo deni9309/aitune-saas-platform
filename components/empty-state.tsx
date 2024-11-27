@@ -1,7 +1,8 @@
-import { EmptyStateProps } from '@/types'
-import Image from 'next/image'
-import { Button } from './ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
+
+import { EmptyStateProps } from '@/types'
+import { Button } from '@/components/ui/button'
 
 const EmptyState = ({ title, buttonLink, buttonText, search }: EmptyStateProps) => {
   return (
@@ -18,9 +19,9 @@ const EmptyState = ({ title, buttonLink, buttonText, search }: EmptyStateProps) 
         {buttonLink && buttonText && (
           <Button
             asChild
-            className="flex items-center justify-center gap-1 bg-orange-1 transition duration-300 hover:bg-zinc-800"
+            className="mt-3 flex items-center justify-center gap-1 bg-orange-1 transition duration-300 hover:bg-zinc-800"
           >
-            <Link href={buttonLink}>
+            <Link href={buttonLink} prefetch={true}>
               <Image src="/icons/discover.svg" width={24} height={24} alt="discover" />
               <p className="text-16 font-extrabold text-white-1">{buttonText}</p>
             </Link>
